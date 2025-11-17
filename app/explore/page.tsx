@@ -1,6 +1,7 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import Image from "next/image";
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 type Product = {
@@ -37,7 +38,6 @@ export default function ExplorePage() {
         }),
       });
       if (response.ok) {
-        // Redirect to checklist
         window.location.href = '/checklist';
       } else {
         console.error('Failed to save item');
@@ -47,10 +47,9 @@ export default function ExplorePage() {
     }
   };
 
-  // Fetch product kategori yang relevan dengan perlengkapan acara
   const [products, setProducts] = useState<Product[]>([]);
 
-  React.useEffect(() => {
+  useEffect(() => {
     fetch("https://dummyjson.com/products")
       .then(res => res.json())
       .then(data => setProducts(data.products));
@@ -67,6 +66,16 @@ export default function ExplorePage() {
         {products.map((item) => (
           <div className="col-md-4" key={item.id}>
             <div className="card h-100 shadow-sm">
+
+              {/* Thumbnail */}
+              <Image
+                src={item.thumbnail}
+                className="card-img-top"
+                width={300}
+                height={200}
+                style={{ objectFit: "cover" }}
+                alt={item.title}
+              />
 
               <div className="card-body d-flex flex-column">
 

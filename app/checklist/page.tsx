@@ -69,7 +69,7 @@ export default function ChecklistPage() {
         }),
       });
       if (response.ok) {
-        fetchItems(); // Refresh the list
+        fetchItems();
         setText("");
         setQuantity(1);
         setCategory("");
@@ -100,7 +100,7 @@ export default function ChecklistPage() {
         }),
       });
       if (response.ok) {
-        fetchItems(); // Refresh the list
+        fetchItems();
       } else {
         console.error('Failed to toggle item');
       }
@@ -121,7 +121,7 @@ export default function ChecklistPage() {
         body: JSON.stringify({ ...item, ...updates }),
       });
       if (response.ok) {
-        fetchItems(); // Refresh the list
+        fetchItems(); 
       } else {
         console.error('Failed to update item');
       }
@@ -136,7 +136,7 @@ export default function ChecklistPage() {
         method: 'DELETE',
       });
       if (response.ok) {
-        fetchItems(); // Refresh the list
+        fetchItems();
       } else {
         console.error('Failed to delete item');
       }
@@ -145,7 +145,6 @@ export default function ChecklistPage() {
     }
   };
 
-  // Filter and search logic
   const filteredItems = items.filter(item => {
     const matchesSearch = item.label.toLowerCase().includes(searchTerm.toLowerCase()) ||
                          item.category.toLowerCase().includes(searchTerm.toLowerCase()) ||
@@ -157,7 +156,6 @@ export default function ChecklistPage() {
     return matchesSearch && matchesCategory && matchesStatus;
   });
 
-  // Calculate total cost
   const totalCost = items.reduce((sum, item) => sum + (item.unitCost * item.quantity), 0);
   const completedCost = items.filter(item => item.done).reduce((sum, item) => sum + (item.unitCost * item.quantity), 0);
 
